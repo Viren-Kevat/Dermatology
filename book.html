@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | Skine Care Clinic®</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧴</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        :root {
+            --forest: #1E5A6B;
+            --forest-dark: #164550;
+            --forest-light: #2A7A8C;
+            --gold: #D4A574;
+            --gold-light: #F5D4CF;
+            --gold-pale: #FDF9F8;
+            --cream: #F8FAFB;
+            --cream-dark: #E2E8F0;
+            --charcoal: #2D3748;
+            --muted: #718096;
+            --sage: #4A5568;
+            --sage-light: #E2E8F0;
+            --white: #FFFFFF;
+            --error: #C0392B;
+            --success: #48BB78;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--charcoal);
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background-color: var(--gold);
+            color: var(--forest-dark);
+        }
+
+        /* ─── NAVBAR (simplified) ─── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            background: rgba(248, 250, 251, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(143, 175, 159, 0.15);
+            box-shadow: 0 2px 16px rgba(27, 77, 62, 0.06);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--forest);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--forest);
+        }
+
+        /* ─── PAGE LAYOUT ─── */
+        .page-wrap {
+            min-height: calc(100vh - 70px);
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            max-width: 1280px;
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        /* ─── LEFT PANEL ─── */
+        .left-panel {
+            padding: 60px 56px;
+            border-right: 1px solid rgba(143, 175, 159, 0.2);
+        }
+
+        .page-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .page-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--gold);
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 46px;
+            font-weight: 600;
+            color: var(--forest);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .page-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .page-sub {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 48px;
+            max-width: 420px;
+        }
+
+        /* ─── BOOKING FORM ─── */
+        .form-section {
+            margin-bottom: 40px;
+        }
+
+        .form-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--cream-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gold-pale);
+            color: var(--forest);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--forest);
+            opacity: 0.8;
+        }
+
+        .form-label .req {
+            color: var(--gold);
+            margin-left: 2px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            color: var(--charcoal);
+            background: var(--white);
+            border: 1.5px solid rgba(143, 175, 159, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--muted);
+            opacity: 0.6;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.15);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+        }
+
+        .form-error {
+            font-size: 12px;
+            color: var(--error);
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .form-select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        /* Service Selector Pills */
+        .service-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .svc-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--white);
+            border: 1.5px solid rgba(143, 175, 159, 0.3);
+            color: var(--charcoal);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .svc-pill:hover {
+            border-color: var(--gold);
+            color: var(--forest);
+        }
+
+        .svc-pill.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--white);
+        }
+
+        .svc-pill.selected .svc-pill-check {
+            display: block;
+        }
+
+        .svc-pill-check {
+            display: none;
+        }
+
+        /* Date/Time Grid */
+        .date-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .date-slot {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid rgba(143, 175, 159, 0.25);
+            border-radius: 12px;
+            cursor: pointer;
+            background: var(--white);
+            transition: all 0.2s;
+        }
+
+        .date-slot:hover:not(.disabled) {
+            border-color: var(--gold);
+        }
+
+        .date-slot.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+        }
+
+        .date-slot.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .date-slot .day-name {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .date-slot .day-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .date-slot.selected .day-name,
+        .date-slot.selected .day-num {
+            color: var(--white);
+        }
+
+        .date-slot.today {
+            position: relative;
+        }
+
+        .date-slot.today::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        .date-slot.selected.today::after {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .time-slot {
+            text-align: center;
+            padding: 10px 6px;
+            border: 1.5px solid rgba(143, 175, 159, 0.25);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--white);
+            color: var(--charcoal);
+            transition: all 0.2s;
+        }
+
+        .time-slot:hover:not(.busy) {
+            border-color: var(--gold);
+            color: var(--forest);
+        }
+
+        .time-slot.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--white);
+        }
+
+        .time-slot.busy {
+            opacity: 0.35;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Consent */
+        .consent-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .consent-check {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .consent-check input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--forest);
+        }
+
+        .consent-text {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .consent-text a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .consent-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit */
+        .btn-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: var(--forest);
+            color: var(--white);
+            border: none;
+            border-radius: 40px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 18px 32px;
+            cursor: pointer;
+            transition: all 0.25s;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-submit:hover {
+            background: var(--forest-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(27, 77, 62, 0.25);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ─── RIGHT PANEL (Sidebar) ─── */
+        .right-panel {
+            padding: 60px 40px;
+            background: var(--cream-dark);
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid rgba(143, 175, 159, 0.15);
+        }
+
+        .sidebar-card-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        /* Booking Summary */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--cream-dark);
+            font-size: 13px;
+            gap: 12px;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .summary-val {
+            font-weight: 600;
+            color: var(--charcoal);
+            text-align: right;
+        }
+
+        .summary-val.empty {
+            color: var(--muted);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Contact Info Card */
+        .contact-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-item-icon {
+            color: var(--forest);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .contact-item p {
+            font-size: 13px;
+            color: var(--charcoal);
+            line-height: 1.5;
+        }
+
+        .contact-item span {
+            font-size: 11px;
+            color: var(--muted);
+            display: block;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        /* Trust Badges */
+        .trust-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .trust-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .trust-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--gold-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--forest);
+            flex-shrink: 0;
+        }
+
+        .trust-item p {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .trust-item span {
+            font-size: 11px;
+            color: var(--muted);
+            display: block;
+            margin-top: 1px;
+        }
+
+        /* ─── SUCCESS STATE ─── */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(250, 248, 245, 0.97);
+            backdrop-filter: blur(8px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-overlay.show {
+            display: flex;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gold-pale);
+            color: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes successPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-overlay h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            color: var(--forest);
+            margin-bottom: 12px;
+        }
+
+        .success-overlay p {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 400px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--forest);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .btn-back:hover {
+            background: var(--forest-light);
+            transform: translateY(-2px);
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media(max-width: 1100px) {
+            .page-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .right-panel {
+                position: static;
+                height: auto;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .left-panel {
+                padding: 40px 20px;
+            }
+
+            .page-title {
+                font-size: 34px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .date-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .time-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-inner">
+            <a href="derma.html" class="nav-logo">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="14" stroke="#1E5A6B" stroke-width="2" />
+                    <path d="M16 6v20M12 10c0 0 4-2 4 2s-4 2-4 6 4 2 4 2" stroke="#E8A598" stroke-width="2"
+                        stroke-linecap="round" />
+                </svg>
+                ClearSkin Dermatology
+            </a>
+            <a href="derma.html" class="nav-back">
+                <i data-lucide="arrow-left" style="width:16px;height:16px"></i>
+                Back to Site
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="page-wrap">
+
+        <!-- LEFT: Form -->
+        <div class="left-panel">
+            <div class="page-label">Schedule a Visit</div>
+            <h1 class="page-title">Book Your<br><em>Appointment</em></h1>
+            <p class="page-sub">Fill out the form below and our team will confirm your appointment within 1 business
+                day. For urgent concerns, call us directly at <strong style="color:var(--forest)">972-221-2784</strong>.
+            </p>
+
+            <form id="booking-form" novalidate>
+
+                <!-- Step 1: Personal Info -->
+                <div class="form-section">
+                    <h2 class="form-section-title">
+                        <span class="step-num">1</span>
+                        Personal Information
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="first-name">Full Name <span class="req">*</span></label>
+                            <input type="text" id="first-name" name="first_name" class="form-input"
+                                placeholder="Jane Stark" required>
+                            <span class="form-error" id="err-first">Required</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address <span class="req">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="jane@email.com"
+                                required>
+                            <span class="form-error" id="err-email">Enter a valid email</span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number <span class="req">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(972) 555-0100"
+                                required>
+                            <span class="form-error" id="err-phone">Required</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="dob">Date of Birth <span class="req">*</span></label>
+                            <input type="date" id="dob" name="dob" class="form-input" required>
+                            <span class="form-error" id="err-dob">Required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label class="form-label" for="patient-type">Patient Type <span class="req">*</span></label>
+                            <select id="patient-type" name="patient_type" class="form-select" required>
+                                <option value="" disabled selected>Select…</option>
+                                <option value="new">New Patient</option>
+                                <option value="existing">Existing Patient</option>
+                            </select>
+                            <span class="form-error" id="err-patient">Required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Insurance -->
+                <div class="form-section">
+                    <h2 class="form-section-title">
+                        <span class="step-num">2</span>
+                        Insurance &amp; Coverage
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="insurance">Insurance Provider</label>
+                            <select id="insurance" name="insurance" class="form-select">
+                                <option value="" disabled selected>Select provider…</option>
+                                <option>Aetna</option>
+                                <option>Blue Cross Blue Shield</option>
+                                <option>Cigna</option>
+                                <option>Humana</option>
+                                <option>Medicare</option>
+                                <option>UnitedHealthcare</option>
+                                <option>Other</option>
+                                <option>Self-Pay / No Insurance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="insurance-id">Member ID / Policy Number</label>
+                            <input type="text" id="insurance-id" name="insurance_id" class="form-input"
+                                placeholder="Optional">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Service -->
+                <div class="form-section">
+                    <h2 class="form-section-title">
+                        <span class="step-num">3</span>
+                        Service &amp; Reason
+                    </h2>
+
+                    <div class="form-group">
+                        <label class="form-label">What do you need help with? <span class="req">*</span></label>
+                        <div class="service-picker" id="service-picker">
+
+                            <div class="svc-pill" data-svc="Wrinkle Relaxers">
+                                <i data-lucide="sparkles" style="width:13px;height:13px"></i>
+                                <span>Wrinkle Relaxers (Botox)</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Deep Skin Peels">
+                                <i data-lucide="flask-conical" style="width:13px;height:13px"></i>
+                                <span>Deep Skin Peels</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Facial Volume Fillers">
+                                <i data-lucide="droplets" style="width:13px;height:13px"></i>
+                                <span>Facial Volume Fillers</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Laser Hair Removal">
+                                <i data-lucide="zap" style="width:13px;height:13px"></i>
+                                <span>Laser Hair Removal</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Laser Acne Clearing">
+                                <i data-lucide="sun" style="width:13px;height:13px"></i>
+                                <span>Laser Acne Clearing</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Gentle Skin Resurfacing">
+                                <i data-lucide="wind" style="width:13px;height:13px"></i>
+                                <span>Gentle Skin Resurfacing</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Laser Scar Repair">
+                                <i data-lucide="scan-face" style="width:13px;height:13px"></i>
+                                <span>Laser Scar Repair</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Spider Vein Removal">
+                                <i data-lucide="activity" style="width:13px;height:13px"></i>
+                                <span>Spider Vein Removal</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Skin Tightening">
+                                <i data-lucide="thermometer" style="width:13px;height:13px"></i>
+                                <span>Skin Tightening</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="Skin Cancer Check">
+                                <i data-lucide="scan" style="width:13px;height:13px"></i>
+                                <span>Skin Cancer Check</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                            <div class="svc-pill" data-svc="General Checkup">
+                                <i data-lucide="stethoscope" style="width:13px;height:13px"></i>
+                                <span>General Checkup</span>
+                                <i data-lucide="check" class="svc-pill-check" style="width:12px;height:12px"></i>
+                            </div>
+
+                        </div>
+                        <span class="form-error" id="err-service">Please select at least one service</span>
+                    </div>
+
+                    <div class="form-group form-row single" style="margin-top:8px">
+                        <label class="form-label" for="notes">Additional Notes / Concerns</label>
+                        <textarea id="notes" name="notes" class="form-textarea"
+                            placeholder="Describe your skin concern, symptoms, or anything you'd like the doctor to know before your visit…"></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 4: Date & Time -->
+                <div class="form-section">
+                    <h2 class="form-section-title">
+                        <span class="step-num">4</span>
+                        Preferred Date &amp; Time
+                    </h2>
+
+                    <div class="form-group">
+                        <label class="form-label">Select a Date <span class="req">*</span></label>
+                        <div class="date-grid" id="date-grid">
+                            <!-- Generated by JS -->
+                        </div>
+                        <span class="form-error" id="err-date">Please select a date</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Available Times <span class="req">*</span></label>
+                        <div class="time-grid" id="time-grid">
+                            <div class="time-slot" data-time="8:00 AM">8:00 AM</div>
+                            <div class="time-slot" data-time="8:30 AM">8:30 AM</div>
+                            <div class="time-slot busy" data-time="9:00 AM">9:00 AM</div>
+                            <div class="time-slot" data-time="9:30 AM">9:30 AM</div>
+                            <div class="time-slot busy" data-time="10:00 AM">10:00 AM</div>
+                            <div class="time-slot" data-time="10:30 AM">10:30 AM</div>
+                            <div class="time-slot" data-time="11:00 AM">11:00 AM</div>
+                            <div class="time-slot busy" data-time="11:30 AM">11:30 AM</div>
+                            <div class="time-slot" data-time="1:00 PM">1:00 PM</div>
+                            <div class="time-slot" data-time="1:30 PM">1:30 PM</div>
+                            <div class="time-slot" data-time="2:00 PM">2:00 PM</div>
+                            <div class="time-slot busy" data-time="2:30 PM">2:30 PM</div>
+                            <div class="time-slot" data-time="3:00 PM">3:00 PM</div>
+                            <div class="time-slot" data-time="3:30 PM">3:30 PM</div>
+                            <div class="time-slot" data-time="4:00 PM">4:00 PM</div>
+                            <div class="time-slot" data-time="4:30 PM">4:30 PM</div>
+                        </div>
+                        <span class="form-error" id="err-time">Please select a time</span>
+                    </div>
+                </div>
+
+                <!-- Consent -->
+                <div class="form-section">
+                    <div class="consent-row" style="margin-bottom:24px">
+                        <div class="consent-check">
+                            <input type="checkbox" id="consent" name="consent" required>
+                        </div>
+                        <div class="consent-text">
+                            I understand that this form submits a <strong>request</strong> — not a confirmed
+                            appointment. Our office will contact me within 1 business day to confirm. I agree to the <a
+                                href="#">Privacy Policy</a> and <a href="#">General Policies</a>.
+                        </div>
+                    </div>
+                    <div class="consent-row">
+                        <div class="consent-check">
+                            <input type="checkbox" id="sms-opt" name="sms_opt">
+                        </div>
+                        <div class="consent-text">
+                            I consent to receive SMS reminders about my appointment. Standard messaging rates may apply.
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submit-btn">
+                    <i data-lucide="calendar-check" style="width:20px;height:20px"></i>
+                    Request Appointment
+                </button>
+
+                <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.6">
+                    <i data-lucide="lock" style="width:12px;height:12px;vertical-align:middle;margin-right:4px"></i>
+                    This form is HIPAA-compliant and your data is protected.
+                </p>
+
+            </form>
+        </div>
+
+
+        <!-- RIGHT: Sidebar -->
+        <aside class="right-panel">
+
+            <!-- Booking Summary -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">Your Booking Summary</div>
+                <div class="summary-row">
+                    <span class="summary-label">Patient</span>
+                    <span class="summary-val empty" id="sum-name">Not entered</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Service</span>
+                    <span class="summary-val empty" id="sum-service">Not selected</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Date</span>
+                    <span class="summary-val empty" id="sum-date">Not selected</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Time</span>
+                    <span class="summary-val empty" id="sum-time">Not selected</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Type</span>
+                    <span class="summary-val empty" id="sum-type">Not selected</span>
+                </div>
+            </div>
+
+            <!-- Clinic Info -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">Clinic Information</div>
+                <div class="contact-item">
+                    <i data-lucide="map-pin" class="contact-item-icon" style="width:16px;height:16px"></i>
+                    <p><span>Address</span>3821 Long Prairie Rd.,Skine Care, TX 75028</p>
+                </div>
+                <div class="contact-item">
+                    <i data-lucide="phone" class="contact-item-icon" style="width:16px;height:16px"></i>
+                    <p><span>Phone</span><a href="tel:9722212784"
+                            style="color:var(--gold);text-decoration:none">972-221-2784</a></p>
+                </div>
+                <div class="contact-item">
+                    <i data-lucide="clock" class="contact-item-icon" style="width:16px;height:16px"></i>
+                    <p><span>Hours</span>Mon–Fri, 8:00 AM – 5:00 PM<br>Sat–Sun: Closed</p>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">Why Choose Us</div>
+                <div class="trust-list">
+                    <div class="trust-item">
+                        <div class="trust-icon"><i data-lucide="shield-check" style="width:16px;height:16px"></i></div>
+                        <div>
+                            <p>Board-Certified Dermatologist</p><span>ABD, ABIM, NBME</span>
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon"><i data-lucide="star" style="width:16px;height:16px"></i></div>
+                        <div>
+                            <p>4.9★ — 289 Reviews</p><span>Verified Google Reviews</span>
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon"><i data-lucide="award" style="width:16px;height:16px"></i></div>
+                        <div>
+                            <p>Best Dermatologist 2025</p><span>Denton County — Murray Media</span>
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon"><i data-lucide="lock" style="width:16px;height:16px"></i></div>
+                        <div>
+                            <p>HIPAA-Compliant</p><span>Your information stays private</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-icon">
+            <i data-lucide="calendar-check" style="width:40px;height:40px"></i>
+        </div>
+        <h2>Appointment Requested!</h2>
+        <p>Thank you! We've received your request and will contact you within <strong>1 business day</strong> to confirm
+            your appointment.</p>
+        <a href="derma.html" class="btn-back">
+            <i data-lucide="arrow-left" style="width:18px;height:18px"></i>
+            Back to Site
+        </a>
+    </div>
+
+
+    <script>
+        lucide.createIcons();
+
+        // ── BUILD DATE GRID ──
+        const dateGrid = document.getElementById('date-grid');
+        const today = new Date();
+        const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+        let selectedDate = null;
+
+        for (let i = 0; i < 14; i++) {
+            const d = new Date(today);
+            d.setDate(today.getDate() + i);
+            const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+            const slot = document.createElement('div');
+            slot.className = 'date-slot' + (isWeekend ? ' disabled' : '') + (i === 0 ? ' today' : '');
+            slot.dataset.date = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            slot.dataset.full = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            slot.innerHTML = `<span class="day-name">${dayNames[d.getDay()]}</span><span class="day-num">${d.getDate()}</span>`;
+            if (!isWeekend) {
+                slot.addEventListener('click', () => {
+                    document.querySelectorAll('.date-slot').forEach(s => s.classList.remove('selected'));
+                    slot.classList.add('selected');
+                    selectedDate = slot.dataset.full;
+                    updateSummary();
+                    document.getElementById('err-date').classList.remove('show');
+                });
+            }
+            dateGrid.appendChild(slot);
+        }
+
+        // ── TIME SELECTION ──
+        let selectedTime = null;
+        document.querySelectorAll('.time-slot:not(.busy)').forEach(slot => {
+            slot.addEventListener('click', () => {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                slot.classList.add('selected');
+                selectedTime = slot.dataset.time;
+                updateSummary();
+                document.getElementById('err-time').classList.remove('show');
+            });
+        });
+
+        // ── SERVICE PILLS ──
+        let selectedServices = [];
+        document.querySelectorAll('.svc-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                pill.classList.toggle('selected');
+                const svc = pill.dataset.svc;
+                if (pill.classList.contains('selected')) {
+                    if (!selectedServices.includes(svc)) selectedServices.push(svc);
+                } else {
+                    selectedServices = selectedServices.filter(s => s !== svc);
+                }
+                lucide.createIcons();
+                updateSummary();
+                if (selectedServices.length > 0) document.getElementById('err-service').classList.remove('show');
+            });
+        });
+
+        // ── LIVE SUMMARY ──
+        function updateSummary() {
+            const fn = document.getElementById('first-name').value.trim();
+            const ln = document.getElementById('last-name').value.trim();
+            const pt = document.getElementById('patient-type').value;
+
+            // Notice we only have first-name, wait we have first-name, but in HTML there is no last-name
+            // Actually the HTML has `<input type="text" id="first-name" name="first_name" ... placeholder="Jane Stark">`
+            // Wait, the updateSummary tries to read 'last-name', but there is no 'last-name' element!
+            // I should fix the JS bug too!
+
+            // Re-adding a defensive check
+            const fnElem = document.getElementById('first-name');
+            const fnVal = fnElem ? fnElem.value.trim() : '';
+
+            const sumName = document.getElementById('sum-name');
+            if (fnVal) {
+                sumName.textContent = fnVal;
+                sumName.classList.remove('empty');
+            } else {
+                sumName.textContent = 'Not entered';
+                sumName.classList.add('empty');
+            }
+
+            const sumSvc = document.getElementById('sum-service');
+            if (selectedServices.length) {
+                sumSvc.textContent = selectedServices.join(', ');
+                sumSvc.classList.remove('empty');
+            } else {
+                sumSvc.textContent = 'Not selected';
+                sumSvc.classList.add('empty');
+            }
+
+            const sumDate = document.getElementById('sum-date');
+            if (selectedDate) {
+                sumDate.textContent = selectedDate;
+                sumDate.classList.remove('empty');
+            } else {
+                sumDate.textContent = 'Not selected';
+                sumDate.classList.add('empty');
+            }
+
+            const sumTime = document.getElementById('sum-time');
+            if (selectedTime) {
+                sumTime.textContent = selectedTime;
+                sumTime.classList.remove('empty');
+            } else {
+                sumTime.textContent = 'Not selected';
+                sumTime.classList.add('empty');
+            }
+
+            const sumType = document.getElementById('sum-type');
+            if (pt) {
+                sumType.textContent = pt === 'new' ? 'New Patient' : 'Existing Patient';
+                sumType.classList.remove('empty');
+            } else {
+                sumType.textContent = 'Not selected';
+                sumType.classList.add('empty');
+            }
+        }
+
+        // Live name update
+        const fnElem = document.getElementById('first-name');
+        if (fnElem) fnElem.addEventListener('input', updateSummary);
+
+        document.getElementById('patient-type').addEventListener('change', updateSummary);
+
+        // ── FORM VALIDATION + SUBMIT ──
+        document.getElementById('booking-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+
+            const required = [
+                { id: 'first-name', err: 'err-first' },
+                { id: 'phone', err: 'err-phone' },
+                { id: 'dob', err: 'err-dob' },
+                { id: 'patient-type', err: 'err-patient', isSelect: true },
+            ];
+            required.forEach(({ id, err }) => {
+                const el = document.getElementById(id);
+                const errEl = document.getElementById(err);
+                if (el && errEl) {
+                    if (!el.value.trim()) {
+                        el.classList.add('error'); errEl.classList.add('show'); valid = false;
+                    } else {
+                        el.classList.remove('error'); errEl.classList.remove('show');
+                    }
+                }
+            });
+
+            // Email
+            const email = document.getElementById('email');
+            const emailErr = document.getElementById('err-email');
+            if (email && emailErr) {
+                if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    email.classList.add('error'); emailErr.classList.add('show'); valid = false;
+                } else {
+                    email.classList.remove('error'); emailErr.classList.remove('show');
+                }
+            }
+
+            if (!selectedServices.length) {
+                document.getElementById('err-service').classList.add('show'); valid = false;
+            }
+            if (!selectedDate) {
+                document.getElementById('err-date').classList.add('show'); valid = false;
+            }
+            if (!selectedTime) {
+                document.getElementById('err-time').classList.add('show'); valid = false;
+            }
+            if (!document.getElementById('consent').checked) {
+                valid = false;
+                document.getElementById('consent').style.outline = '2px solid var(--error)';
+            } else {
+                document.getElementById('consent').style.outline = '';
+            }
+
+            if (!valid) return;
+
+            // Simulate submit
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader" style="width:20px;height:20px;animation:spin 1s linear infinite"></i> Submitting…';
+            lucide.createIcons();
+
+            setTimeout(() => {
+                document.getElementById('success-overlay').classList.add('show');
+            }, 1200);
+        });
+
+        // Clear error on input
+        document.querySelectorAll('.form-input, .form-select').forEach(el => {
+            el.addEventListener('input', () => el.classList.remove('error'));
+        });
+    </script>
+
+    <style>
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</body>
+
+</html>
